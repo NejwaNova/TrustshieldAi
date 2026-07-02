@@ -1,0 +1,6 @@
+{
+  "summary":  "Detailed plan to port the Python (FastAPI) backend of TrustShield AI to a Node.js (Express) backend. It details the file transitions, the API endpoints, the DB class replication, and the engine scoring logic replication.",
+  "updatedAt":  "2026-07-02T21:54:26.164903200Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

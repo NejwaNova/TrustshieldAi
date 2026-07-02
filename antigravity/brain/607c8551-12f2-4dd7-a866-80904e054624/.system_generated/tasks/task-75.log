@@ -1,0 +1,17 @@
+
+added 70 packages, and audited 71 packages in 28s
+
+16 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm notice
+npm notice New minor version of npm available! 11.6.2 -> 11.18.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0
+npm notice To update run: npm install -g npm@11.18.0
+npm notice
+
+> trustshield-ai@1.0.0 start
+> node backend/server.js
+
+TrustShield AI Server running at http://127.0.0.1:8000
