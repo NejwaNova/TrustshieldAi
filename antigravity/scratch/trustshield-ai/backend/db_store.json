@@ -84,6 +84,138 @@
             "time": "Just now",
             "timestamp": "2026-07-02T22:05:44.315Z",
             "details": "### Threat Telemetry Verdict: CRITICAL (90/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Website Shield (Score: 90/100)**: Analyzing reputation for URL: https://amaz0n-security-portal.com/login; Typosquatting detected (substitutions match: amaz0n); High-risk path detected (login/verification keyword)\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{{composite}} = \\max(S_{{critical}}) \\times 0.6 + \\left( \\frac{{\\sum (W_i \\times S_i)}}{{\\sum W_i}} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 90, Weighted Avg = 90.0.\nCalculation: \\(90 \\times 0.6 + 90.0 \\times 0.4 = 90\\) (Clamped to 100)."
+        },
+        {
+            "id": 8,
+            "item": "https://amaz0n-security-portal.com/login-verification",
+            "type": "URL",
+            "risk_score": 90,
+            "result": "Critical",
+            "source": "Web Dashboard",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:11:51.834630Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (90/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Website Shield (Score: 90/100)**: Analyzing reputation for URL: https://amaz0n-security-portal.com/login-verification; Typosquatting detected (substitutions match: amaz0n); High-risk path detected (login/verification keyword)\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 90, Weighted Avg = 90.0.\nCalculation: \\(90 \\times 0.6 + 90.0 \\times 0.4 = 90\\) (Clamped to 100)."
+        },
+        {
+            "id": 9,
+            "item": "[Forwarded Audio Memo Attachment] cloned_ceo_voice_authorization.wav",
+            "type": "Audio",
+            "risk_score": 88,
+            "result": "Critical",
+            "source": "Webhook: Telegram (Direct Bot)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:11:52.017762Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (88/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Deepfake Shield (Score: 88/100)**: Ingested multi-media stream for neural validation; CNN spatial model identified face-warping artifacts; Audio spectrum analyzer detected synthetic phase anomalies (cloned voice)\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 88, Weighted Avg = 88.0.\nCalculation: \\(88 \\times 0.6 + 88.0 \\times 0.4 = 88\\) (Clamped to 100)."
+        },
+        {
+            "id": 10,
+            "item": "nmmmm",
+            "type": "Email",
+            "risk_score": 30,
+            "result": "Suspicious",
+            "source": "Web Dashboard",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:13:16.802689Z",
+            "details": "### Threat Telemetry Verdict: SUSPICIOUS (30/100)\n\n**System Action**: User Warned\n\n**Mitigation Recommendation**:\nExercise caution. Minor anomalies detected. Avoid sharing sensitive data or clicking nested links without out-of-band verification.\n\n**Active Telemetry Logs**:\n- **Email Shield (Score: 30/100)**: Missing or unaligned DKIM/SPF headers\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 30, Weighted Avg = 30.0.\nCalculation: \\(30 \\times 0.6 + 30.0 \\times 0.4 = 30\\) (Clamped to 100)."
+        },
+        {
+            "id": 11,
+            "item": "[File Ingest Attachment]\nFilename: cycy.png\nSize: 1512 KB\nAnalyzing file structure for anomalies.",
+            "type": "Video",
+            "risk_score": 12,
+            "result": "Safe",
+            "source": "Web Dashboard",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:13:56.482431Z",
+            "details": "### Threat Telemetry Verdict: SAFE (12/100)\n\n**System Action**: Allowed\n\n**Mitigation Recommendation**:\nNo action required. The asset appears authentic and carries no significant digital threat telemetry.\n\n**Active Telemetry Logs**:\n- **Deepfake Shield (Score: 12/100)**: Ingested multi-media stream for neural validation; Structural video frames show optical consistency\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 12, Weighted Avg = 12.0.\nCalculation: \\(12 \\times 0.6 + 12.0 \\times 0.4 = 12\\) (Clamped to 100)."
+        },
+        {
+            "id": 12,
+            "item": "https://amaz0n-security-portal.com/login",
+            "type": "URL",
+            "risk_score": 90,
+            "result": "Critical",
+            "source": "Webhook: Discord (#announcements)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:14:25.845568Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (90/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Website Shield (Score: 90/100)**: Analyzing reputation for URL: https://amaz0n-security-portal.com/login; Typosquatting detected (substitutions match: amaz0n); High-risk path detected (login/verification keyword)\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 90, Weighted Avg = 90.0.\nCalculation: \\(90 \\times 0.6 + 90.0 \\times 0.4 = 90\\) (Clamped to 100)."
+        },
+        {
+            "id": 13,
+            "item": "[Audio Recording Attachment]",
+            "type": "Audio",
+            "risk_score": 88,
+            "result": "Critical",
+            "source": "Webhook: Telegram (Direct Bot)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:14:33.347053Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (88/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Deepfake Shield (Score: 88/100)**: Ingested multi-media stream for neural validation; CNN spatial model identified face-warping artifacts\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 88, Weighted Avg = 88.0.\nCalculation: \\(88 \\times 0.6 + 88.0 \\times 0.4 = 88\\) (Clamped to 100)."
+        },
+        {
+            "id": 14,
+            "item": "FROM: CEO <ceo@external-fraud.com>\nSUBJECT: Wire urgent invoice funds immedia...",
+            "type": "Email",
+            "risk_score": 50,
+            "result": "High Risk",
+            "source": "Webhook: Gmail (Inbox)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:14:48.100016Z",
+            "details": "### Threat Telemetry Verdict: HIGH RISK (50/100)\n\n**System Action**: Asset Quarantined\n\n**Mitigation Recommendation**:\nQuarantine executed. Multiple telemetry indicators flagged. Do not open attachments or input credentials.\n\n**Active Telemetry Logs**:\n- **Email Shield (Score: 50/100)**: Suspicious BEC keywords detected: ceo; Missing or unaligned DKIM/SPF headers\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 50, Weighted Avg = 50.0.\nCalculation: \\(50 \\times 0.6 + 50.0 \\times 0.4 = 50\\) (Clamped to 100)."
+        },
+        {
+            "id": 15,
+            "item": "[File Metadata Telemetry Ingest]\nFilename: VanGuard.pdf\nSize: 330 KB\nType: application/pdf\nAnalyzing active elements and code signatures.",
+            "type": "Email",
+            "risk_score": 30,
+            "result": "Suspicious",
+            "source": "Manual Console",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:15:54.367602Z",
+            "details": "### Threat Telemetry Verdict: SUSPICIOUS (30/100)\n\n**System Action**: User Warned\n\n**Mitigation Recommendation**:\nExercise caution. Minor anomalies detected. Avoid sharing sensitive data or clicking nested links without out-of-band verification.\n\n**Active Telemetry Logs**:\n- **Email Shield (Score: 30/100)**: Missing or unaligned DKIM/SPF headers\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 30, Weighted Avg = 30.0.\nCalculation: \\(30 \\times 0.6 + 30.0 \\times 0.4 = 30\\) (Clamped to 100)."
+        },
+        {
+            "id": 16,
+            "item": "km ijmk, k,ok,",
+            "type": "Email",
+            "risk_score": 30,
+            "result": "Suspicious",
+            "source": "Web Dashboard",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:31:21.123453Z",
+            "details": "### Threat Telemetry Verdict: SUSPICIOUS (30/100)\n\n**System Action**: User Warned\n\n**Mitigation Recommendation**:\nExercise caution. Minor anomalies detected. Avoid sharing sensitive data or clicking nested links without out-of-band verification.\n\n**Active Telemetry Logs**:\n- **Email Shield (Score: 30/100)**: Missing or unaligned DKIM/SPF headers\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 30, Weighted Avg = 30.0.\nCalculation: \\(30 \\times 0.6 + 30.0 \\times 0.4 = 30\\) (Clamped to 100)."
+        },
+        {
+            "id": 17,
+            "item": "https://amaz0n-security-portal.com/login",
+            "type": "URL",
+            "risk_score": 90,
+            "result": "Critical",
+            "source": "Webhook: Discord (#announcements)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:32:28.870811Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (90/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Website Shield (Score: 90/100)**: Analyzing reputation for URL: https://amaz0n-security-portal.com/login; Typosquatting detected (substitutions match: amaz0n); High-risk path detected (login/verification keyword)\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 90, Weighted Avg = 90.0.\nCalculation: \\(90 \\times 0.6 + 90.0 \\times 0.4 = 90\\) (Clamped to 100)."
+        },
+        {
+            "id": 18,
+            "item": "FROM: CEO <ceo@external-fraud.com>\nSUBJECT: Wire urgent invoice funds immedia...",
+            "type": "Email",
+            "risk_score": 50,
+            "result": "High Risk",
+            "source": "Webhook: Gmail (Inbox)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:32:50.470063Z",
+            "details": "### Threat Telemetry Verdict: HIGH RISK (50/100)\n\n**System Action**: Asset Quarantined\n\n**Mitigation Recommendation**:\nQuarantine executed. Multiple telemetry indicators flagged. Do not open attachments or input credentials.\n\n**Active Telemetry Logs**:\n- **Email Shield (Score: 50/100)**: Suspicious BEC keywords detected: ceo; Missing or unaligned DKIM/SPF headers\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 50, Weighted Avg = 50.0.\nCalculation: \\(50 \\times 0.6 + 50.0 \\times 0.4 = 50\\) (Clamped to 100)."
+        },
+        {
+            "id": 19,
+            "item": "[Audio Recording Attachment]",
+            "type": "Audio",
+            "risk_score": 88,
+            "result": "Critical",
+            "source": "Webhook: Telegram (Direct Bot)",
+            "time": "Just now",
+            "timestamp": "2026-07-02T23:33:36.162917Z",
+            "details": "### Threat Telemetry Verdict: CRITICAL (88/100)\n\n**System Action**: Blocked\n\n**Mitigation Recommendation**:\nPayload blocked immediately. Confirmed malicious signature, brand impersonation, or deepfake model matches.\n\n**Active Telemetry Logs**:\n- **Deepfake Shield (Score: 88/100)**: Ingested multi-media stream for neural validation; CNN spatial model identified face-warping artifacts\n\n**Trust Engine Composite Scoring Math**:\n\\( S_{composite} = \\max(S_{critical}) \\times 0.6 + \\left( \\frac{\\sum (W_i \\times S_i)}{\\sum W_i} \\right) \\times 0.4 \\)\n\nInputs: Max active score = 88, Weighted Avg = 88.0.\nCalculation: \\(88 \\times 0.6 + 88.0 \\times 0.4 = 88\\) (Clamped to 100)."
         }
     ],
     "threats": [
@@ -122,6 +254,54 @@
             "scan_id": 7,
             "threat_type": "URL Critical",
             "severity": "Critical"
+        },
+        {
+            "id": 7,
+            "scan_id": 8,
+            "threat_type": "URL Critical",
+            "severity": "Critical"
+        },
+        {
+            "id": 8,
+            "scan_id": 9,
+            "threat_type": "Audio Critical",
+            "severity": "Critical"
+        },
+        {
+            "id": 9,
+            "scan_id": 12,
+            "threat_type": "URL Critical",
+            "severity": "Critical"
+        },
+        {
+            "id": 10,
+            "scan_id": 13,
+            "threat_type": "Audio Critical",
+            "severity": "Critical"
+        },
+        {
+            "id": 11,
+            "scan_id": 14,
+            "threat_type": "Email High Risk",
+            "severity": "High Risk"
+        },
+        {
+            "id": 12,
+            "scan_id": 17,
+            "threat_type": "URL Critical",
+            "severity": "Critical"
+        },
+        {
+            "id": 13,
+            "scan_id": 18,
+            "threat_type": "Email High Risk",
+            "severity": "High Risk"
+        },
+        {
+            "id": 14,
+            "scan_id": 19,
+            "threat_type": "Audio Critical",
+            "severity": "Critical"
         }
     ],
     "logs": [
@@ -154,17 +334,131 @@
             "timestamp": "2026-07-02T22:05:44.315Z",
             "event": "Asset scanned (Type: URL, Risk: 90/100)",
             "operator": "system"
+        },
+        {
+            "id": 6,
+            "timestamp": "2026-07-02T23:11:51.834630Z",
+            "event": "Asset scanned (Type: URL, Risk: 90/100)",
+            "operator": "system"
+        },
+        {
+            "id": 7,
+            "timestamp": "2026-07-02T23:11:51.990804Z",
+            "event": "Integration telegram configuration updated (connected)",
+            "operator": "admin"
+        },
+        {
+            "id": 8,
+            "timestamp": "2026-07-02T23:11:52.017762Z",
+            "event": "Asset scanned (Type: Audio, Risk: 88/100)",
+            "operator": "system"
+        },
+        {
+            "id": 9,
+            "timestamp": "2026-07-02T23:13:16.802689Z",
+            "event": "Asset scanned (Type: Email, Risk: 30/100)",
+            "operator": "system"
+        },
+        {
+            "id": 10,
+            "timestamp": "2026-07-02T23:13:56.482431Z",
+            "event": "Asset scanned (Type: Video, Risk: 12/100)",
+            "operator": "system"
+        },
+        {
+            "id": 11,
+            "timestamp": "2026-07-02T23:14:25.845568Z",
+            "event": "Asset scanned (Type: URL, Risk: 90/100)",
+            "operator": "system"
+        },
+        {
+            "id": 12,
+            "timestamp": "2026-07-02T23:14:33.347053Z",
+            "event": "Asset scanned (Type: Audio, Risk: 88/100)",
+            "operator": "system"
+        },
+        {
+            "id": 13,
+            "timestamp": "2026-07-02T23:14:48.100016Z",
+            "event": "Asset scanned (Type: Email, Risk: 50/100)",
+            "operator": "system"
+        },
+        {
+            "id": 14,
+            "timestamp": "2026-07-02T23:15:54.367602Z",
+            "event": "Asset scanned (Type: Email, Risk: 30/100)",
+            "operator": "system"
+        },
+        {
+            "id": 15,
+            "timestamp": "2026-07-02T23:16:15.816582Z",
+            "event": "Integration gmail configuration updated (connected)",
+            "operator": "admin"
+        },
+        {
+            "id": 16,
+            "timestamp": "2026-07-02T23:16:22.761806Z",
+            "event": "Integration telegram configuration updated (connected)",
+            "operator": "admin"
+        },
+        {
+            "id": 17,
+            "timestamp": "2026-07-02T23:16:29.699290Z",
+            "event": "Integration slack configuration updated (disconnected)",
+            "operator": "admin"
+        },
+        {
+            "id": 18,
+            "timestamp": "2026-07-02T23:16:36.437708Z",
+            "event": "Integration whatsapp configuration updated (disconnected)",
+            "operator": "admin"
+        },
+        {
+            "id": 19,
+            "timestamp": "2026-07-02T23:17:45.350121Z",
+            "event": "Integration telegram configuration updated (disconnected)",
+            "operator": "admin"
+        },
+        {
+            "id": 20,
+            "timestamp": "2026-07-02T23:31:21.123453Z",
+            "event": "Asset scanned (Type: Email, Risk: 30/100)",
+            "operator": "system"
+        },
+        {
+            "id": 21,
+            "timestamp": "2026-07-02T23:32:28.870811Z",
+            "event": "Asset scanned (Type: URL, Risk: 90/100)",
+            "operator": "system"
+        },
+        {
+            "id": 22,
+            "timestamp": "2026-07-02T23:32:50.470063Z",
+            "event": "Asset scanned (Type: Email, Risk: 50/100)",
+            "operator": "system"
+        },
+        {
+            "id": 23,
+            "timestamp": "2026-07-02T23:33:18.580238Z",
+            "event": "Integration telegram configuration updated (connected)",
+            "operator": "admin"
+        },
+        {
+            "id": 24,
+            "timestamp": "2026-07-02T23:33:36.162917Z",
+            "event": "Asset scanned (Type: Audio, Risk: 88/100)",
+            "operator": "system"
         }
     ],
     "integrations": {
         "gmail": {
             "connected": true,
-            "token": "g_oauth_mock_9921",
-            "webhook": "https://pubsub.googleapis.com/v1/projects/trustshield/topics/gmail-push"
+            "token": "projects/trustshield/topics/gmail-push",
+            "webhook": "projects/trustshield/topics/gmail-push"
         },
         "telegram": {
-            "connected": false,
-            "token": "",
+            "connected": true,
+            "token": "https://github.com/NejwaNova/TrustshieldAi-V2.git",
             "webhook": ""
         },
         "discord": {
