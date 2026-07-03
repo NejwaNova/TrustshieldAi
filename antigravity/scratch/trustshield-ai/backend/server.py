@@ -53,7 +53,48 @@ class WebhookRequest(BaseModel):
     channel: Optional[str] = None
     attachment_name: Optional[str] = None
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class SubscriptionRequest(BaseModel):
+    username: str
+    plan: str
+
 # API Endpoints
+@app.post("/api/login")
+async def login_operator(req: LoginRequest):
+    if req.username == "admin" and req.password == "admin":
+        db_users = db.load_all().get("users", [])
+        user = next((u for u in db_users if u.get("username") == "admin"), None)
+        if not user:
+            user = {"username": "admin", "role": "Security Operator", "subscription": "Free Tier"}
+        return {
+            "status": "authenticated",
+            "user": user
+        }
+    else:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid operator credentials"
+        )
+
+@app.post("/api/subscription")
+async def update_subscription(req: SubscriptionRequest):
+    user = db.set_subscription(req.username, req.plan)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    broadcast_event("subscription_update", {
+        "username": req.username,
+        "subscription": req.plan
+    })
+    
+    return {
+        "status": "updated",
+        "user": user
+    }
+
 @app.get("/api/scans")
 async def get_scans():
     return db.get_scans()

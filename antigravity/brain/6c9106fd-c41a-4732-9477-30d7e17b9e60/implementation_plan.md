@@ -1,73 +1,53 @@
-# Implementation Plan - Python (FastAPI) Backend Migration
+# Implementation Plan - Subscription, Amharic Language, and Login Features
 
-Migrate the TrustShield AI digital trust platform backend from Node.js (Express) to Python (FastAPI) as requested. This migration preserves the existing database JSON schema, the multi-shield threat analysis engine, standard SSE streaming, webhook triggers, and the high-fidelity glassmorphic HTML/CSS/JS frontend dashboard.
+Enhance the TrustShield AI platform with three essential features:
+1. **Operator Login Flow**: Full authentication overlay preventing unauthorized dashboard access.
+2. **Amharic Language Toggle**: A clean localization switcher translating landing elements and dashboard nodes.
+3. **Subscription & Pricing Panel**: Interactive tiers (Free, Pro, Enterprise) modifying scanning limits and features list.
+
+---
 
 ## Proposed Changes
 
-### Configuration & Utilities
+### Frontend Configuration
 
-#### [NEW] [requirements.txt](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/requirements.txt)
-Define standard Python dependencies for FastAPI:
-- `fastapi`
-- `uvicorn`
+#### [MODIFY] [index.html](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/frontend/index.html)
+- Add Language Switcher toggle (English / Amharic) in the header.
+- Add "Operator Login" button in the landing page header.
+- Add full-page glassmorphic login screen overlay (`#login-overlay`) with modern glowing form elements.
+- Add a new "Subscription" nav tab in the dashboard sidebar.
+- Add `#tab-subscription` layout containing three premium pricing cards with custom gradients and plan listings.
+- Inject `data-translate` markers on all localizable headings, text blocks, and buttons.
 
-#### [MODIFY] [run.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/run.py)
-Update startup automation script to:
-1. Verify Python 3 is installed.
-2. Install Python dependencies from `requirements.txt` using `pip install`.
-3. Start the FastAPI server using `python backend/server.py` or `uvicorn`.
+#### [MODIFY] [app.js](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/frontend/app.js)
+- Add `LOCALIZATION` dictionary mapping key elements between English and Amharic.
+- Implement `setLanguage(lang)` function to dynamically translate labeled elements and update placeholders.
+- Add session login state. Secure check against backend `POST /api/login`.
+- Manage login visibility and block dashboard tabs for unauthenticated operators.
+- Implement `selectPlan(planName)` function calling `POST /api/subscription`, upgrading the active operator profile, and updating the dashboard header.
 
-#### [MODIFY] [package.json](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/package.json)
-Update `"start"` script to trigger the Python server for seamless backward compatibility if `npm start` is invoked:
-- `"start": "python backend/server.py"`
-
----
-
-### Backend Logic & API Layer
-
-#### [NEW] [database.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/database.py)
-Replicate Node.js database helper class (`SimpleDB`) in Python:
-- Load/Save to `backend/db_store.json` using Python `json` library.
-- Implement `get_scans()`, `add_scan(scan_data)`, `get_stats()`, `get_integrations()`, and `update_integration(...)`.
-- Thread-safe operations using file locks or simple Python structure updates.
-
-#### [NEW] [engine.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/engine.py)
-Replicate the multi-shield composite scoring math and threat identification heuristics in Python:
-- Implement `TrustShieldEngine.analyze(...)`.
-- Include matching heuristics for Email, Website, Deepfake, Prompt, QR, and Document shields.
-- Compile natural language markdown reports and math LaTeX details.
-
-#### [NEW] [server.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/server.py)
-FastAPI REST API server matching current Node routes:
-- `GET /api/scans` -> Return historical scans.
-- `POST /api/scan` -> Scan payload and broadcast result.
-- `GET /api/stats` -> Get computed distribution statistics.
-- `GET /api/integrations` -> Get integrations map.
-- `POST /api/integrations/{platform}` -> Update platform state.
-- `POST /api/integrations/webhook/{platform}` -> Process external triggers.
-- `GET /api/stream` -> Server-Sent Events (SSE) using standard Starlette StreamingResponse.
-- Serve static files from `/frontend` and fallback SPA route.
+#### [MODIFY] [styles.css](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/frontend/styles.css)
+- Style the Language Switcher button toggles.
+- Add styling for the Login screen overlay: glassmorphic card, glowing input fields, password visibility toggles, and login container slide-in animations.
+- Add styling for the Subscription grid and pricing cards (glow accents, list icons, plan badge, hover lift transitions).
 
 ---
 
-### Clean Up
+### Backend Logic & Persistence
 
-#### [DELETE] [database.js](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/database.js)
-#### [DELETE] [engine.js](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/engine.js)
-#### [DELETE] [server.js](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/server.js)
+#### [MODIFY] [database.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/database.py)
+- Expand database file (`db_store.json`) with operator session store and subscription tier logs.
+- Add helper method `set_subscription(user_id, plan_name)` and login verification logging.
+
+#### [MODIFY] [server.py](file:///C:/Users/PC/.gemini/antigravity/scratch/trustshield-ai/backend/server.py)
+- Create `POST /api/login` endpoint verifying operator credentials (default: username `admin`, password `admin`).
+- Create `POST /api/subscription` endpoint upgrading subscription plan.
 
 ---
 
 ## Verification Plan
 
-### Automated Tests
-- Run backend verification scripts to ensure FastAPI serves matching JSON shapes to the frontend.
-
 ### Manual Verification
-- Start the server using `python run.py`.
-- Access the dashboard at `http://127.0.0.1:8000`.
-- Verify the following dashboard workflows:
-  1. Manual Scan Console (Inputting raw prompts or files, getting detailed composite score card + explanation).
-  2. Ingestion/Webhook Simulator (Clicking simulated webhook cards, observing live sliding toast alerts via SSE).
-  3. Integration settings (Connecting/disconnecting channels).
-  4. Tabs (switching dashboard tabs and reading audit logs).
+1. **Localization Check**: Click the "አማ" (Amharic) button and verify major parts of the landing page and dashboard translate instantly. Click "EN" to return to English.
+2. **Login Verification**: Try clicking "View Dashboard" or sidebar buttons before logging in; verify it forces the login overlay. Log in with `admin` / `admin` and check smooth slide-out and dashboard unlocking.
+3. **Subscription Upgrades**: Go to "Subscription" tab, select "Pro Shield" or "Enterprise Shield", click "Select Plan", verify toast notification and operators details updating.

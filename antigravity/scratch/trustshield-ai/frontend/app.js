@@ -17,6 +17,144 @@ let currentStats = {
     distribution: { critical: 35, high: 25, medium: 20, safe: 20 }
 };
 
+// Login & Session states
+let isLoggedIn = false;
+let currentUser = null;
+let currentLanguage = 'en';
+
+const LOCALIZATION = {
+    en: {
+        logo_text: "TrustShield AI",
+        btn_login: "Operator Login",
+        btn_logout: "Operator Sign Out",
+        tagline: "Verify Before You Trust",
+        hackathon_tag: "AI Security & Deepfake Defense + Fraud Prevention & Trust",
+        
+        // Navigation sidebar
+        nav_dashboard: "Dashboard",
+        nav_scan: "Scan Console",
+        nav_integrations: "Integrations",
+        nav_subscription: "Subscription",
+        nav_history: "Full History",
+        nav_audit: "Audit Logs",
+        
+        // Login panel
+        login_title: "Operator Authentication",
+        login_subtitle: "Access the TrustScore Security Control Dashboard",
+        login_error: "Invalid username or password.",
+        label_username: "Operator Username",
+        label_password: "Security Passcode",
+        btn_cancel: "Cancel",
+        btn_authenticate: "Authenticate",
+        
+        // Subscription panel
+        sub_title: "Premium Shield Subscriptions",
+        sub_desc: "Upgrade your threat pipeline telemetry to unlock real-time vector analysis, advanced modules, and deep messaging integration sentinels.",
+        free_title: "Starter Protection",
+        free_desc: "Basic manual scanning capabilities for individual file and URL assets.",
+        period_mo: "/month",
+        feat_scan_limit_basic: "Max 500 characters per scan",
+        feat_basic_shields: "Email, URL, and Text shields",
+        feat_manual_scans: "Manual console scan submission",
+        feat_integrations: "Messaging platform integrations",
+        feat_realtime_sse: "Real-time webhook alert banners",
+        
+        pro_badge: "Pro Shield",
+        pro_title: "Professional Security",
+        pro_desc: "All 7 specialized shields running concurrently with real-time API integrations.",
+        feat_scan_limit_unlimited: "Unlimited characters per scan",
+        feat_all_shields: "All 7 specialized threat shields active",
+        feat_basic_integrations: "Telegram and Discord live connectors",
+        feat_sse_toasts: "Real-time SSE warning alerts & toasts",
+        feat_enterprise_integrations: "Gmail and Slack Sentinel integration",
+        
+        ent_title: "Enterprise Defense",
+        ent_desc: "Deep corporate workspace sentinel listeners, dedicated support, and custom rules.",
+        feat_all_integrations: "All integrations (Gmail, Slack, WhatsApp)",
+        feat_dedicated_support: "24/7 Dedicated DevSecOps support",
+        feat_custom_models: "Custom detection weights & thresholds",
+        btn_select_plan: "Select Plan",
+        current_plan: "Current Active Plan",
+        
+        // Dashboard stats
+        stat_total_scans: "Total Scans",
+        stat_threats: "Threats Detected",
+        stat_safe: "Safe Items",
+        stat_avg_score: "Average Risk Score",
+        
+        // Buttons
+        btn_scan_now: "Scan Now",
+        btn_attach_file: "Attach File",
+        btn_subscribe: "Subscribe",
+        modal_sub_title: "Choose a Plan"
+    },
+    am: {
+        logo_text: "ትረስትሺልድ AI",
+        btn_login: "የአይቲ ኦፕሬተር መግቢያ",
+        btn_logout: "ኦፕሬተር ውጣ",
+        tagline: "ከማመንዎ በፊት ያረጋግጡ",
+        hackathon_tag: "የአርቴፊሻል ኢንተለጀንስ ደህንነት እና የዲፕፌክ መከላከያ + የማጭበርበር መከላከል እና እምነት",
+        
+        // Navigation sidebar
+        nav_dashboard: "ዳሽቦርድ",
+        nav_scan: "መመርመሪያ ኮንሶል",
+        nav_integrations: "ውህደቶች",
+        nav_subscription: "ምዝገባ",
+        nav_history: "ሙሉ ታሪክ",
+        nav_audit: "የስርዓት ምዝግብ ማስታወሻዎች",
+        
+        // Login panel
+        login_title: "የኦፕሬተር ማረጋገጫ",
+        login_subtitle: "የደህንነት ቁጥጥር ዳሽቦርዱን ለመክፈት ይግቡ",
+        login_error: "የተሳሳተ የተጠቃሚ ስም ወይም የይለፍ ቃል ያስገቡ።",
+        label_username: "የኦፕሬተር ተጠቃሚ ስም",
+        label_password: "የደህንነት ይለፍ ቃል",
+        btn_cancel: "ሰርዝ",
+        btn_authenticate: "አረጋግጥና ግባ",
+        
+        // Subscription panel
+        sub_title: "የደህንነት መመርመሪያ ምዝገባዎች",
+        sub_desc: "የደህንነት ፍተሻ አቅምዎን ያሳድጉ፤ የቅጽበታዊ ስጋት ትንተና፣ የላቁ ሞጁሎችን እና የሜሴጂንግ ቻናሎችን ውህደት ይክፈቱ።",
+        free_title: "የመጀመሪያ ደረጃ ጥበቃ",
+        free_desc: "ለፋይሎች እና ለሊንኮች የሚሆን መሠረታዊ መመርመሪያ ኮንሶል።",
+        period_mo: "/በወር",
+        feat_scan_limit_basic: "እስከ 500 ቁምፊዎች ብቻ መመርመር የሚችል",
+        feat_basic_shields: "የኢሜይል፣ የዌብሳይት እና የፅሁፍ መመርመሪያዎች",
+        feat_manual_scans: "በኮንሶል ላይ በእጅ የሚገባ ፍተሻ",
+        feat_integrations: "የሜሴጂንግ መተግበሪያዎች ውህደት",
+        feat_realtime_sse: "የቅጽበታዊ የስጋት ማስጠንቀቂያ ሰሌዳ",
+        
+        pro_badge: "ፕሮ ሺልድ",
+        pro_title: "የባለሙያ ደረጃ ጥበቃ",
+        pro_desc: "ሁሉም 7ቱ ልዩ መመርመሪያዎች በአንድ ላይ በቅጽበት ይሰራሉ።",
+        feat_scan_limit_unlimited: "ያልተገደበ የቁምፊዎች ፍተሻ",
+        feat_all_shields: "ሁሉም 7ቱ ልዩ መመርመሪያዎች ንቁ ናቸው",
+        feat_basic_integrations: "የቴሌግራም እና የዲስኮርድ ቅጽበታዊ ውህደት",
+        feat_sse_toasts: "የቅጽበታዊ የደህንነት ማስጠንቀቂያዎች (SSE Toasts)",
+        feat_enterprise_integrations: "የጂሜይል እና የስላክ የደህንነት ውህደት",
+        
+        ent_title: "የድርጅት ደረጃ ጥበቃ",
+        ent_desc: "የድርጅት የመገናኛ ቻናሎች ፍተሻ፣ የ24/7 የደህንነት ድጋፍ እና ብጁ መመርመሪያዎች።",
+        feat_all_integrations: "ሁሉም ውህደቶች (ጂሜይል፣ ስላክ፣ ዋትስአፕ)",
+        feat_dedicated_support: "የ24/7 ልዩ የደህንነት ባለሙያ ድጋፍ",
+        feat_custom_models: "ብጁ የስጋት መለኪያ እና ደረጃዎችን ማስተካከል",
+        btn_select_plan: "ዕቅድ ምረጥ",
+        current_plan: "አሁን እየሰሩበት ያለ ዕቅድ",
+        
+        // Dashboard stats
+        stat_total_scans: "ጠቅላላ ፍተሻዎች",
+        stat_threats: "የተገኙ ስጋቶች",
+        stat_safe: "ደህንነታቸው የተጠበቀ",
+        stat_avg_score: "አማካይ የስጋት ደረጃ",
+        
+        // Buttons
+        btn_scan_now: "አሁን መርምር",
+        btn_attach_file: "ፋይል አያይዝ",
+        btn_subscribe: "ይመዝገቡ",
+        modal_sub_title: "ዕቅድ ይምረጡ"
+    }
+};
+
 // Threat Scenarios Examples for Quick Scan Tabs
 const THREAT_SCENARIOS = {
     Email: [
@@ -47,6 +185,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Language Toggle setup
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            const lang = btn.getAttribute("data-lang");
+            setLanguage(lang);
+        });
+    });
+
     // Scan tabs setup
     document.querySelectorAll(".scan-tab").forEach(tab => {
         tab.addEventListener("click", () => {
@@ -63,6 +211,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Trigger Scan button
     document.getElementById("btn-run-scan").addEventListener("click", executeQuickScan);
     document.getElementById("btn-submit-sa").addEventListener("click", executeStandaloneScan);
+    // Header subscription button (quick access)
+    const headerSubBtn = document.getElementById("btn-header-subscribe");
+    if (headerSubBtn) {
+        headerSubBtn.addEventListener("click", () => {
+            // Open subscription modal for all users (no login required)
+            openSubscriptionModal();
+        });
+    }
 
     // Initial renders
     updateQuickScanTab();
@@ -77,6 +233,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // View Navigation
 function showTab(tabId) {
+    if (!isLoggedIn) {
+        openLoginOverlay(tabId);
+        return;
+    }
     currentActiveTab = tabId;
     
     // Update nav active
@@ -106,6 +266,10 @@ function showTab(tabId) {
 }
 
 function scrollToSection(id) {
+    if (id === 'dashboard-portal-anchor' && !isLoggedIn) {
+        openLoginOverlay('dashboard');
+        return;
+    }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
@@ -115,16 +279,47 @@ function updateQuickScanTab() {
     const textarea = document.getElementById("scan-input");
     const container = document.getElementById("examples-buttons");
     
-    // Set placeholder depending on active tab
-    if (currentScanTab === "Email") {
-        textarea.placeholder = "Paste email content here or upload .eml / .msg file...";
-    } else if (currentScanTab === "URL") {
-        textarea.placeholder = "Enter URL link (e.g. https://amaz0n-verify.com)...";
-    } else if (currentScanTab === "Video") {
-        textarea.placeholder = "Provide media details or attach file (e.g., .mp4, .wav, .png)...";
-    } else {
-        textarea.placeholder = "Enter LLM application prompt to test injection vulnerability...";
-    }
+    const placeholders = {
+        en: {
+            Email: "Paste email content here or upload .eml / .msg file...",
+            URL: "Enter URL link (e.g. https://amaz0n-verify.com)...",
+            Video: "Provide media details or attach file (e.g., .mp4, .wav, .png)...",
+            Prompt: "Enter LLM application prompt to test injection vulnerability..."
+        },
+        am: {
+            Email: "እዚህ የኢሜይል ይዘት ይለጥፉ ወይም .eml / .msg ፋይል ይስቀሉ...",
+            URL: "የዌብሳይት አድራሻ ሊንክ ያስገቡ (ለምሳሌ https://amaz0n-verify.com)...",
+            Video: "የሚዲያ ፋይል ዝርዝር ያስገቡ ወይም ፋይል ያያይዙ (.mp4, .wav, .png)...",
+            Prompt: "የLLM መተግበሪያ የደህንነት ክፍተትን ለመፈተሽ ጥያቄውን እዚህ ያስገቡ..."
+        }
+    };
+
+    const labelTranslations = {
+        en: {
+            "BEC Invoice Scam": "BEC Invoice Scam",
+            "Safe Executive Update": "Safe Executive Update",
+            "Typosquat Phishing": "Typosquat Phishing",
+            "Safe Google Query": "Safe Google Query",
+            "Cloned Audio Memo": "Cloned Audio Memo",
+            "Safe MP4 Recording": "Safe MP4 Recording",
+            "Jailbreak Prompt": "Jailbreak Prompt",
+            "Safe Prompt Query": "Safe Prompt Query"
+        },
+        am: {
+            "BEC Invoice Scam": "የክፍያ ማጭበርበሪያ ኢሜይል",
+            "Safe Executive Update": "መደበኛ የሥራ መግለጫ",
+            "Typosquat Phishing": "የተጭበረበረ ሊንክ (Phishing)",
+            "Safe Google Query": "መደበኛ የፍለጋ ሊንክ",
+            "Cloned Audio Memo": "የድምጽ ማስመስል (Deepfake)",
+            "Safe MP4 Recording": "መደበኛ የቪዲዮ ፋይል",
+            "Jailbreak Prompt": "የLLM ጥቃት ሙከራ",
+            "Safe Prompt Query": "መደበኛ የደህንነት ጥያቄ"
+        }
+    };
+
+    const lang = currentLanguage || 'en';
+    const tabKey = currentScanTab === 'Text / Prompt' ? 'Prompt' : currentScanTab;
+    textarea.placeholder = placeholders[lang][tabKey] || placeholders['en'][tabKey];
     
     textarea.value = "";
     container.innerHTML = "";
@@ -134,7 +329,7 @@ function updateQuickScanTab() {
     scenarios.forEach(sc => {
         const btn = document.createElement("button");
         btn.className = "btn-example-pill";
-        btn.innerText = sc.label;
+        btn.innerText = labelTranslations[lang][sc.label] || sc.label;
         btn.addEventListener("click", () => {
             textarea.value = sc.text;
         });
@@ -673,6 +868,12 @@ function connectSSE() {
 
                 // Trigger sliding toast notification for threats
                 showThreatToast(msg.data);
+            } else if (msg.event === "subscription_update") {
+                if (currentUser && currentUser.username === msg.data.username) {
+                    currentUser.subscription = msg.data.subscription;
+                    updateSubscriptionUI();
+                    document.querySelector(".profile-role").innerText = `${currentUser.role} (${currentUser.subscription})`;
+                }
             }
         } catch (e) {
             console.error("SSE parse error: ", e);
@@ -832,3 +1033,235 @@ function escapeHtml(text) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+// ==========================================================================
+// Authentication & Login Flow Logic
+// ==========================================================================
+let loginRedirectTab = 'dashboard';
+
+function openLoginOverlay(redirectTab = 'dashboard') {
+    loginRedirectTab = redirectTab;
+    document.getElementById("login-overlay").style.display = "flex";
+    document.getElementById("login-username").focus();
+}
+
+function closeLoginOverlay() {
+    document.getElementById("login-overlay").style.display = "none";
+    document.getElementById("login-username").value = "";
+    document.getElementById("login-password").value = "";
+    document.getElementById("login-error-msg").style.display = "none";
+}
+
+async function executeLogin() {
+    const userField = document.getElementById("login-username");
+    const passField = document.getElementById("login-password");
+    const errorMsg = document.getElementById("login-error-msg");
+
+    const username = userField.value.trim();
+    const password = passField.value.trim();
+
+    if (!username || !password) {
+        errorMsg.style.display = "block";
+        errorMsg.innerText = currentLanguage === 'en' ? "Username and Password are required." : "የተጠቃሚ ስም እና የይለፍ ቃል ያስፈልጋል።";
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/api/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            isLoggedIn = true;
+            currentUser = data.user;
+            
+            // Close login dialog
+            closeLoginOverlay();
+            
+            // Update Header Login Button to Sign Out
+            const loginBtn = document.getElementById("btn-header-login");
+            loginBtn.className = "btn btn-outline btn-login-operator";
+            loginBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> <span data-translate="btn_logout">${LOCALIZATION[currentLanguage].btn_logout}</span>`;
+            loginBtn.onclick = executeLogout;
+
+            // Unlock and navigate to dashboard
+            showTab(loginRedirectTab);
+            
+            // Smooth scroll down to dashboard portal
+            scrollToSection('dashboard-portal-anchor');
+            
+            // Render Subscription Cards state
+            updateSubscriptionUI();
+            
+            // Sync user details to operator profile
+            document.querySelector(".profile-name").innerText = currentUser.username;
+            document.querySelector(".profile-role").innerText = `${currentUser.role} (${currentUser.subscription})`;
+            
+            loadAuditLogs();
+        } else {
+            const err = await response.json();
+            errorMsg.style.display = "block";
+            errorMsg.innerText = currentLanguage === 'en' 
+                ? (err.detail || "Authentication failed. Invalid passcode.") 
+                : "የይለፍ ቃል ትክክል አይደለም። እባክዎ እንደገና ይሞክሩ።";
+        }
+    } catch (e) {
+        errorMsg.style.display = "block";
+        errorMsg.innerText = currentLanguage === 'en' ? "Server connection error." : "ከአገልጋዩ ጋር መገናኘት አልተቻለም።";
+    }
+}
+
+function executeLogout() {
+    isLoggedIn = false;
+    currentUser = null;
+
+    // Reset Login Button
+    const loginBtn = document.getElementById("btn-header-login");
+    loginBtn.className = "btn btn-secondary btn-login-operator";
+    loginBtn.innerHTML = `<i class="fa-solid fa-user-shield"></i> <span data-translate="btn_login">${LOCALIZATION[currentLanguage].btn_login}</span>`;
+    loginBtn.onclick = () => openLoginOverlay('dashboard');
+
+    // Remove active tab panes
+    document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+    
+    // Add active back to default dashboard but hide it
+    document.getElementById("tab-dashboard").classList.add("active");
+    document.querySelectorAll(".nav-btn")[0].classList.add("active");
+
+    // Scroll to landing top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==========================================================================
+// Subscription Upgrades Logic
+// ==========================================================================
+async function upgradePlan(planName) {
+    if (!isLoggedIn || !currentUser) {
+        openLoginOverlay('subscription');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/api/subscription`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: currentUser.username,
+                plan: planName
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            currentUser.subscription = planName;
+            
+            // Visual Updates
+            updateSubscriptionUI();
+            
+            // Update operator card text
+            document.querySelector(".profile-role").innerText = `${currentUser.role} (${currentUser.subscription})`;
+            
+            const msg = currentLanguage === 'en' 
+                ? `Successfully upgraded to ${planName} plan!` 
+                : `በደህንነት ወደ ${planName} ዕቅድ በተሳካ ሁኔታ አሻሽለዋል!`;
+            alert(msg);
+            
+            loadAuditLogs();
+        } else {
+            alert("Plan upgrade failed.");
+        }
+    } catch (e) {
+        alert("Failed to update subscription: " + e.message);
+    }
+}
+
+function updateSubscriptionUI() {
+    if (!currentUser) return;
+    
+    const currentSub = currentUser.subscription;
+    
+    // List of plans and their DOM selectors
+    const planMappings = {
+        "Free Tier": "free",
+        "Pro Shield": "pro",
+        "Enterprise Shield": "enterprise"
+    };
+
+    // Remove custom outlines from all cards
+    document.querySelectorAll(".pricing-card").forEach(card => {
+        card.classList.remove("recommended");
+        const btn = card.querySelector(".btn-upgrade-plan");
+        if (btn) {
+            btn.classList.remove("btn-primary");
+            btn.classList.add("btn-secondary");
+            const btnSpan = btn.querySelector("span");
+            if (btnSpan) {
+                btnSpan.setAttribute("data-translate", "btn_select_plan");
+                btnSpan.innerText = LOCALIZATION[currentLanguage].btn_select_plan;
+            }
+            btn.disabled = false;
+        }
+    });
+
+    const activeKey = planMappings[currentSub];
+    if (activeKey) {
+        const activeCard = document.getElementById(`plan-card-${activeKey}`);
+        if (activeCard) {
+            activeCard.classList.add("recommended");
+            const activeBtn = activeCard.querySelector(".btn-upgrade-plan");
+            if (activeBtn) {
+                activeBtn.classList.remove("btn-secondary");
+                activeBtn.classList.add("btn-primary");
+                const activeBtnSpan = activeBtn.querySelector("span");
+                if (activeBtnSpan) {
+                    activeBtnSpan.removeAttribute("data-translate");
+                    activeBtnSpan.innerText = LOCALIZATION[currentLanguage].current_plan;
+                }
+                activeBtn.disabled = true;
+            }
+        }
+    }
+}
+
+// Subscription Modal Controls
+function openSubscriptionModal() {
+    const modal = document.getElementById('subscription-modal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeSubscriptionModal() {
+    const modal = document.getElementById('subscription-modal');
+    if (modal) modal.style.display = 'none';
+}
+
+// ==========================================================================
+// Amharic & English Localization Switcher Logic
+// ==========================================================================
+function setLanguage(lang) {
+    if (!LOCALIZATION[lang]) return;
+    currentLanguage = lang;
+    
+    // Process all elements marked with data-translate
+    document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        if (LOCALIZATION[lang][key]) {
+            el.innerText = LOCALIZATION[lang][key];
+        }
+    });
+
+    // Update Quick Scan Tab placeholder and scenario options
+    updateQuickScanTab();
+    
+    // Refresh subscription cards if logged in
+    if (isLoggedIn) {
+        updateSubscriptionUI();
+        
+        // Update operator details card in sidebar
+        document.querySelector(".profile-role").innerText = `${currentUser.role} (${currentUser.subscription})`;
+    }
+}
+

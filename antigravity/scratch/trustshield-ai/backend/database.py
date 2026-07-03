@@ -8,7 +8,7 @@ def get_default_data():
     now = datetime.utcnow().isoformat() + "Z"
     return {
         "users": [
-            {"id": 1, "username": "admin", "email": "admin@trustshield.ai", "role": "Security Operator"}
+            {"id": 1, "username": "admin", "email": "admin@trustshield.ai", "role": "Security Operator", "subscription": "Free Tier"}
         ],
         "scans": [
             {
@@ -214,3 +214,25 @@ class SimpleDB:
             self.save_all(db)
             return integrations[name]
         return None
+
+    def set_subscription(self, username, plan_name):
+        db = self.load_all()
+        users = db.setdefault("users", [])
+        user = next((u for u in users if u.get("username") == username), None)
+        if user:
+            user["subscription"] = plan_name
+            
+            # Log event
+            logs = db.setdefault("logs", [])
+            next_log_id = max([l.get("id", 0) for l in logs]) + 1 if logs else 1
+            logs.append({
+                "id": next_log_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z",
+                "event": f"User {username} upgraded subscription to {plan_name}",
+                "operator": username
+            })
+            
+            self.save_all(db)
+            return user
+        return None
+
